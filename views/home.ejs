@@ -1,0 +1,106 @@
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      
+        <%= title %>
+    </title>
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
+
+    <!-- lets put the noty.js link -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"> </script>
+    <!-- end of the noty.js link -->
+     
+</head>
+<body>
+
+       
+    <!-- start of the heading section -->
+     <div id="heading"> 
+      <div class="to-do-heading">TO-Do</div>
+      <div class="to-do-heading">Reminds Everything</div>
+     </div>
+     <!-- end of the heading section -->
+   <!-- start of the main section -->
+     <div id="main">
+     <!-- heading under the main -->
+     <div id="heading-main" > 
+        <span id="to-do-image"><img src="/images/to-do-icon.png"></span>
+          <span class="color heading-main-span">To-do</span>
+        </div>
+        <!-- end of the heading under the main section -->
+        <!-- starting of the input section -->
+
+        <div id="input-section">
+            <!-- this is the text area -->
+            <form action="create-work" method="POST">
+              <div id="form-input-section">
+         <div id="description"> <span><textarea name ="experience" rows="5" cols="49" placeholder="Type text here..." required></textarea></span> </div>
+         <!-- this is the date and  work section -->
+           <div id="date-and-work">
+            <span id="work">
+                <select name="work">
+                    <option selected>choose a category</option>
+                    <option>work</option>
+                    <option >personal</option>
+                    <option>cleaning</option>
+                    <option>school</option>
+                </select>
+            </span>
+            <span id="date">
+                <input name="date" type="date" required>
+            </span>
+           </div>
+          <!-- end of the date and work section -->
+          <!-- this is the button section -->
+          <div id="submit-delete-button">
+          <span id="submit-button"><button type="submit">ADD-TASK</button></span>
+          <span id="delete-button"><button type="submit" form="myForm">Delete</button></span>
+          
+          </div>
+          <!-- end of the button section -->
+          </div>
+          </form>
+        </div>
+        <!-- ending of the input section -->
+         <!-- this is the work section -->
+         <form action="/delete-todo" id="myForm" method="POST"> 
+         <% for(works of work) {%>
+         
+          <div class="details">
+            <div class="details-date-work">
+              <span class="date-color"><%= works.date%></span>
+              <span class="work-color"><%= works.work%></span>
+            </div>
+
+            <div class="details-description">
+              <span><input name="task" type="checkbox" value= "<%= works._id %>"></span>
+              <span class="color"><%= works.description%></span>
+            </div>
+          </div>
+          
+          
+          <%}%>
+         </form>
+         <!-- end of the work section -->
+     </div>
+     <!-- end of the main section -->
+  <script>
+     <% if(flash.success && flash.success.length>0) {%>
+            
+      new Noty({
+        theme: 'relax',
+        text: "<%= flash.success %>",
+        type: 'success',
+        layout: 'topRight',
+        timeout:  1500
+   
+   }).show();
+      <%}%>
+      </script>
+</body>
+</html>
